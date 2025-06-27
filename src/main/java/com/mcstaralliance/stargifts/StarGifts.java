@@ -16,8 +16,6 @@ public final class StarGifts extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
-
     }
 
     @Override
@@ -47,12 +45,15 @@ public final class StarGifts extends JavaPlugin {
             return true;
         }
         if (args[0].equalsIgnoreCase("all")) {
+            int amount = item.getAmount();
             for (Player p : Bukkit.getOnlinePlayers()) {
                 if (p.equals(player)) continue;
-                p.getInventory().addItem(item.clone());
+                ItemStack giveItem = item.clone();
+                giveItem.setAmount(amount);
+                p.getInventory().addItem(giveItem);
             }
-            player.sendMessage(ChatColor.GREEN + "已将手中物品发放给全服玩家。");
-            Bukkit.broadcastMessage(ChatColor.GOLD + "[StarGifts] " + ChatColor.AQUA + player.getName() + " 给全服玩家发放了一个 " + item.getType().name() + "!");
+            player.sendMessage(ChatColor.GREEN + "已将手中物品发放给全服玩家，每人 " + amount + " 个。");
+            Bukkit.broadcastMessage(ChatColor.GOLD + "[StarGifts] " + ChatColor.AQUA + player.getName() + " 给全服玩家发放了 " + amount + " 个 " + item.getType().name() + "!");
         } else if (args[0].equalsIgnoreCase("random")) {
             List<Player> players = Bukkit.getOnlinePlayers().stream().filter(p -> !p.equals(player)).collect(Collectors.toList());
             if (players.isEmpty()) {
