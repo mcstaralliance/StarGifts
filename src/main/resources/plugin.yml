@@ -1,0 +1,10 @@
+name: StarGifts
+version: '1.0-SNAPSHOT'
+main: com.mcstaralliance.stargifts.StarGifts
+api-version: '1.20'
+commands:
+  gifts:
+    description: "给全服或随机玩家发放手上物品"
+    usage: "/gifts <all|random>"
+    permission: "stargifts.give"
+    permission-message: "你没有权限使用此指令。"
